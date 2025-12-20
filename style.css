@@ -98,6 +98,10 @@ nav a {
 
 .hero-content {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
 }
 
 .btn {
