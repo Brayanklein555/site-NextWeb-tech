@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>NextWeb Tech</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+</head>
+
+<script>
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({
+  canvas: document.getElementById("bg"),
+  alpha: true
+});
+
+renderer.setSize(innerWidth, innerHeight);
+camera.position.z = 40;
+
+const geometry = new THREE.BufferGeometry();
+const count = 2000;
+const positions = [];
+
+for (let i = 0; i < count; i++) {
+  positions.push(
+    (Math.random() - 0.5) * 300,
+    (Math.random() - 0.5) * 300,
+    (Math.random() - 0.5) * 300
+  );
+}
+
+geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+
+const material = new THREE.PointsMaterial({
+  color: 0x7dd3fc,
+  size: 0.6
+});
+
+const particles = new THREE.Points(geometry, material);
+scene.add(particles);
+
+let mouseX = 0, mouseY = 0;
+
+document.addEventListener("mousemove", e => {
+  mouseX = (e.clientX / innerWidth - 0.5) * 2;
+  mouseY = (e.clientY / innerHeight - 0.5) * 2;
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  particles.rotation.y += 0.001 + mouseX * 0.002;
+  particles.rotation.x += 0.001 + mouseY * 0.002;
+  renderer.render(scene, camera);
+}
+
+animate();
+
+addEventListener("resize", () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+
+  
+<body>
+
+<canvas id="bg"></canvas>
+
+<header>
+  <div class="nav">
+    <div class="brand">NextWeb Tech</div>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="servicos.html">Serviços</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>NextWeb Tech</h1>
+    <p>Tecnologia, design e experiências digitais premium.</p>
+    <a href="contato.html" class="btn">Solicitar Orçamento</a>
+  </div>
+</section>
+
+<footer>© 2025 NextWeb Tech</footer>
+
+<!-- Script 3D -->
+<!-- (cole aqui o SCRIPT 3D enviado acima) -->
+
+<script src="script.js"></script>
+</body>
+</html>
